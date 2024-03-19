@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
-import CreateUser from "./page-content";
-import { getServerTranslation } from "@/services/i18n";
+import type { Metadata } from 'next';
+import CreateUser from './page-content';
+import { getServerTranslation } from '@/services/i18n';
 
 type Props = {
   params: { language: string };
@@ -9,11 +9,11 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslation(
     params.language,
-    "admin-panel-users-create"
+    'admin-panel-users-create'
   );
 
   return {
-    title: t("title"),
+    title: t('title'),
   };
 }
 

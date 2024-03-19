@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useCallback } from "react";
-import { Tokens } from "./types/tokens";
-import { TokensInfo } from "../auth/auth-context";
-import { AUTH_REFRESH_URL } from "./config";
-import { FetchInputType, FetchInitType } from "./types/fetch-params";
-import useLanguage from "../i18n/use-language";
+import { useCallback } from 'react';
+import { Tokens } from './types/tokens';
+import { TokensInfo } from '../auth/auth-context';
+import { AUTH_REFRESH_URL } from './config';
+import { FetchInputType, FetchInitType } from './types/fetch-params';
+import useLanguage from '../i18n/use-language';
 
 function useFetchBase() {
   const language = useLanguage();
@@ -19,13 +19,13 @@ function useFetchBase() {
       }
     ) => {
       let headers: HeadersInit = {
-        "x-custom-lang": language,
+        'x-custom-lang': language,
       };
 
       if (!(init?.body instanceof FormData)) {
         headers = {
           ...headers,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         };
       }
 
@@ -38,9 +38,9 @@ function useFetchBase() {
 
       if (tokens?.tokenExpires && tokens.tokenExpires <= Date.now()) {
         const newTokens = await fetch(AUTH_REFRESH_URL, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${tokens.refreshToken}`,
           },
         }).then((res) => res.json());
@@ -59,7 +59,7 @@ function useFetchBase() {
         } else {
           tokens?.setTokensInfo?.(null);
 
-          throw new Error("Refresh token expired");
+          throw new Error('Refresh token expired');
         }
       }
 

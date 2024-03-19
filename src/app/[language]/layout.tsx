@@ -1,37 +1,35 @@
-import ResponsiveAppBar from "@/components/app-bar";
-import AuthProvider from "@/services/auth/auth-provider";
-import "../globals.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import CssBaseline from "@mui/material/CssBaseline";
-import { dir } from "i18next";
-import "@/services/i18n/config";
-import { languages } from "@/services/i18n/config";
-import type { Metadata } from "next";
-import SnackbarProvider from "@/components/snackbar-provider";
-import { getServerTranslation } from "@/services/i18n";
-import StoreLanguageProvider from "@/services/i18n/store-language-provider";
-import ThemeProvider from "@/components/theme/theme-provider";
-import LeavePageProvider from "@/services/leave-page/leave-page-provider";
-import QueryClientProvider from "@/services/react-query/query-client-provider";
-import queryClient from "@/services/react-query/query-client";
-import ReactQueryDevtools from "@/services/react-query/react-query-devtools";
-import GoogleAuthProvider from "@/services/social-auth/google/google-auth-provider";
-import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-provider";
-import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
-import InitColorSchemeScript from "@/components/theme/init-color-scheme-script";
+import type { Metadata } from 'next';
+import { dir } from 'i18next';
+
+import { fontSans } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
+import AuthProvider from '@/services/auth/auth-provider';
+import '@/styles/globals.css';
+import '@/services/i18n/config';
+import { languages } from '@/services/i18n/config';
+import SnackbarProvider from '@/components/snackbar-provider';
+import { getServerTranslation } from '@/services/i18n';
+import StoreLanguageProvider from '@/services/i18n/store-language-provider';
+import LeavePageProvider from '@/services/leave-page/leave-page-provider';
+import QueryClientProvider from '@/services/react-query/query-client-provider';
+import queryClient from '@/services/react-query/query-client';
+import ReactQueryDevtools from '@/services/react-query/react-query-devtools';
+import GoogleAuthProvider from '@/services/social-auth/google/google-auth-provider';
+import FacebookAuthProvider from '@/services/social-auth/facebook/facebook-auth-provider';
+import ConfirmDialogProvider from '@/components/confirm-dialog/confirm-dialog-provider';
+
+import { SiteHeader } from '@/components/site-header';
+import ThemeProvider from '@/components/theme/theme-provider';
 
 type Props = {
   params: { language: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { t } = await getServerTranslation(params.language, "common");
+  const { t } = await getServerTranslation(params.language, 'common');
 
   return {
-    title: t("title"),
+    title: t('title'),
   };
 }
 
@@ -47,13 +45,18 @@ export default function RootLayout({
   params: { language: string };
 }) {
   return (
-    <html lang={language} dir={dir(language)}>
-      <body>
-        <InitColorSchemeScript />
+    <html lang={language} dir={dir(language)} suppressHydrationWarning>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          fontSans.variable
+        )}
+      >
+        {/* <InitColorSchemeScript /> */}
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <ThemeProvider>
-            <CssBaseline />
+            {/* <CssBaseline /> */}
             <SnackbarProvider maxSnack={3}>
               <StoreLanguageProvider>
                 <ConfirmDialogProvider>
@@ -61,7 +64,8 @@ export default function RootLayout({
                     <GoogleAuthProvider>
                       <FacebookAuthProvider>
                         <LeavePageProvider>
-                          <ResponsiveAppBar />
+                          <SiteHeader />
+                          {/* <ResponsiveAppBar /> */}
                           {children}
                         </LeavePageProvider>
                       </FacebookAuthProvider>

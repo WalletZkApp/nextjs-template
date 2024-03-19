@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Tokens } from "@/services/api/types/tokens";
-import { User } from "@/services/api/types/user";
+import { Tokens } from '@/services/api/types/tokens';
+import { User } from '@/services/api/types/user';
 import {
   PropsWithChildren,
   useCallback,
@@ -9,20 +9,20 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
+} from 'react';
 import {
   AuthActionsContext,
   AuthContext,
   AuthTokensContext,
   TokensInfo,
-} from "./auth-context";
-import Cookies from "js-cookie";
-import useFetchBase from "@/services/api/use-fetch-base";
-import { AUTH_LOGOUT_URL, AUTH_ME_URL } from "@/services/api/config";
-import HTTP_CODES_ENUM from "../api/types/http-codes";
+} from './auth-context';
+import Cookies from 'js-cookie';
+import useFetchBase from '@/services/api/use-fetch-base';
+import { AUTH_LOGOUT_URL, AUTH_ME_URL } from '@/services/api/config';
+import HTTP_CODES_ENUM from '../api/types/http-codes';
 
 function AuthProvider(props: PropsWithChildren<{}>) {
-  const AUTH_TOKEN_KEY = "auth-token-data";
+  const AUTH_TOKEN_KEY = 'auth-token-data';
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const tokensInfoRef = useRef<Tokens>({
@@ -59,7 +59,7 @@ function AuthProvider(props: PropsWithChildren<{}>) {
       await fetchBase(
         AUTH_LOGOUT_URL,
         {
-          method: "POST",
+          method: 'POST',
         },
         {
           token: tokensInfoRef.current.token,
@@ -73,7 +73,7 @@ function AuthProvider(props: PropsWithChildren<{}>) {
 
   const loadData = useCallback(async () => {
     const tokens = JSON.parse(
-      Cookies.get(AUTH_TOKEN_KEY) ?? "null"
+      Cookies.get(AUTH_TOKEN_KEY) ?? 'null'
     ) as TokensInfo;
 
     setTokensInfoRef(tokens);
@@ -83,7 +83,7 @@ function AuthProvider(props: PropsWithChildren<{}>) {
         const response = await fetchBase(
           AUTH_ME_URL,
           {
-            method: "GET",
+            method: 'GET',
           },
           {
             token: tokens.token,

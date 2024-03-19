@@ -1,16 +1,24 @@
 {
-  "extends": ["next", "plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:tailwindcss/recommended"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier", "tailwindcss"],
   "root": true,
   "rules": {
+    "@next/next/no-html-link-for-pages": "off",
+    "react/jsx-key": "off",
+    "tailwindcss/no-custom-classname": "off",
     "prettier/prettier": [
       "error",
       {
         "tabWidth": 2,
         "semi": true,
         "endOfLine": "auto",
-        "singleQuote": false,
+        "singleQuote": true,
         "trailingComma": "es5"
       }
     ],
@@ -130,5 +138,14 @@
         ]
       }
     ]
+  },
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn"],
+      "config": "tailwind.config.ts"
+    },
+    "next": {
+      "rootDir": ["./src"]
+    }
   }
 }

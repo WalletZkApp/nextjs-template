@@ -1,5 +1,5 @@
-"use client";
+'use client';
 
-import { SnackbarProvider } from "notistack";
+import { SnackbarProvider } from 'notistack';
 
 export default SnackbarProvider;

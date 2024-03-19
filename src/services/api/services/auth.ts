@@ -1,11 +1,11 @@
-import { useCallback } from "react";
-import useFetchBase from "../use-fetch-base";
-import useFetch from "../use-fetch";
-import { API_URL } from "../config";
-import { User } from "../types/user";
-import { Tokens } from "../types/tokens";
-import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
-import { RequestConfigType } from "./types/request-config";
+import { useCallback } from 'react';
+import useFetchBase from '../use-fetch-base';
+import useFetch from '../use-fetch';
+import { API_URL } from '../config';
+import { User } from '../types/user';
+import { Tokens } from '../types/tokens';
+import wrapperFetchJsonResponse from '../wrapper-fetch-json-response';
+import { RequestConfigType } from './types/request-config';
 
 export type AuthLoginRequest = {
   email: string;
@@ -22,7 +22,7 @@ export function useAuthLoginService() {
   return useCallback(
     (data: AuthLoginRequest) => {
       return fetchBase(`${API_URL}/v1/auth/email/login`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthLoginResponse>);
     },
@@ -44,7 +44,7 @@ export function useAuthGoogleLoginService() {
   return useCallback(
     (data: AuthGoogleLoginRequest) => {
       return fetchBase(`${API_URL}/v1/auth/google/login`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthGoogleLoginResponse>);
     },
@@ -66,7 +66,7 @@ export function useAuthFacebookLoginService() {
   return useCallback(
     (data: AuthFacebookLoginRequest, requestConfig?: RequestConfigType) => {
       return fetchBase(`${API_URL}/v1/auth/facebook/login`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<AuthFacebookLoginResponse>);
@@ -88,7 +88,7 @@ export function useAuthSignUpService() {
   return useCallback(
     (data: AuthSignUpRequest, requestConfig?: RequestConfigType) => {
       return fetchBase(`${API_URL}/v1/auth/email/register`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<AuthSignUpResponse>);
@@ -109,7 +109,7 @@ export function useAuthConfirmEmailService() {
   return useCallback(
     (data: AuthConfirmEmailRequest, requestConfig?: RequestConfigType) => {
       return fetchBase(`${API_URL}/v1/auth/email/confirm`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<AuthConfirmEmailResponse>);
@@ -130,7 +130,7 @@ export function useAuthForgotPasswordService() {
   return useCallback(
     (data: AuthForgotPasswordRequest, requestConfig?: RequestConfigType) => {
       return fetchBase(`${API_URL}/v1/auth/forgot/password`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<AuthForgotPasswordResponse>);
@@ -152,7 +152,7 @@ export function useAuthResetPasswordService() {
   return useCallback(
     (data: AuthResetPasswordRequest, requestConfig?: RequestConfigType) => {
       return fetchBase(`${API_URL}/v1/auth/reset/password`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<AuthResetPasswordResponse>);
@@ -162,7 +162,7 @@ export function useAuthResetPasswordService() {
 }
 
 export type AuthPatchMeRequest =
-  | Partial<Pick<User, "firstName" | "lastName">>
+  | Partial<Pick<User, 'firstName' | 'lastName'>>
   | { password: string; oldPassword: string };
 
 export type AuthPatchMeResponse = User;
@@ -173,7 +173,7 @@ export function useAuthPatchMeService() {
   return useCallback(
     (data: AuthPatchMeRequest, requestConfig?: RequestConfigType) => {
       return fetch(`${API_URL}/v1/auth/me`, {
-        method: "PATCH",
+        method: 'PATCH',
         body: JSON.stringify(data),
         ...requestConfig,
       }).then(wrapperFetchJsonResponse<AuthPatchMeResponse>);

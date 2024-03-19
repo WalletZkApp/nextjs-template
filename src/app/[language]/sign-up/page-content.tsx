@@ -1,28 +1,28 @@
-"use client";
-import Button from "@mui/material/Button";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
-import { useForm, FormProvider, useFormState } from "react-hook-form";
+'use client';
+import Button from '@mui/material/Button';
+import withPageRequiredGuest from '@/services/auth/with-page-required-guest';
+import { useForm, FormProvider, useFormState } from 'react-hook-form';
 import {
   useAuthLoginService,
   useAuthSignUpService,
-} from "@/services/api/services/auth";
-import useAuthActions from "@/services/auth/use-auth-actions";
-import useAuthTokens from "@/services/auth/use-auth-tokens";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import FormTextInput from "@/components/form/text-input/form-text-input";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import Link from "@/components/link";
-import Box from "@mui/material/Box";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
-import { useTranslation } from "@/services/i18n/client";
-import Divider from "@mui/material/Divider";
-import Chip from "@mui/material/Chip";
-import SocialAuth from "@/services/social-auth/social-auth";
-import { isGoogleAuthEnabled } from "@/services/social-auth/google/google-config";
-import { isFacebookAuthEnabled } from "@/services/social-auth/facebook/facebook-config";
+} from '@/services/api/services/auth';
+import useAuthActions from '@/services/auth/use-auth-actions';
+import useAuthTokens from '@/services/auth/use-auth-tokens';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import FormTextInput from '@/components/form/text-input/form-text-input';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Link from '@/components/link';
+import Box from '@mui/material/Box';
+import HTTP_CODES_ENUM from '@/services/api/types/http-codes';
+import { useTranslation } from '@/services/i18n/client';
+import Divider from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
+import SocialAuth from '@/services/social-auth/social-auth';
+import { isGoogleAuthEnabled } from '@/services/social-auth/google/google-config';
+import { isFacebookAuthEnabled } from '@/services/social-auth/facebook/facebook-config';
 
 type SignUpFormData = {
   firstName: string;
@@ -32,28 +32,28 @@ type SignUpFormData = {
 };
 
 const useValidationSchema = () => {
-  const { t } = useTranslation("sign-up");
+  const { t } = useTranslation('sign-up');
 
   return yup.object().shape({
     firstName: yup
       .string()
-      .required(t("sign-up:inputs.firstName.validation.required")),
+      .required(t('sign-up:inputs.firstName.validation.required')),
     lastName: yup
       .string()
-      .required(t("sign-up:inputs.lastName.validation.required")),
+      .required(t('sign-up:inputs.lastName.validation.required')),
     email: yup
       .string()
-      .email(t("sign-up:inputs.email.validation.invalid"))
-      .required(t("sign-up:inputs.email.validation.required")),
+      .email(t('sign-up:inputs.email.validation.invalid'))
+      .required(t('sign-up:inputs.email.validation.required')),
     password: yup
       .string()
-      .min(6, t("sign-up:inputs.password.validation.min"))
-      .required(t("sign-up:inputs.password.validation.required")),
+      .min(6, t('sign-up:inputs.password.validation.min'))
+      .required(t('sign-up:inputs.password.validation.required')),
   });
 };
 
 function FormActions() {
-  const { t } = useTranslation("sign-up");
+  const { t } = useTranslation('sign-up');
   const { isSubmitting } = useFormState();
 
   return (
@@ -64,7 +64,7 @@ function FormActions() {
       disabled={isSubmitting}
       data-testid="sign-up-submit"
     >
-      {t("sign-up:actions.submit")}
+      {t('sign-up:actions.submit')}
     </Button>
   );
 }
@@ -74,16 +74,16 @@ function Form() {
   const { setTokensInfo } = useAuthTokens();
   const fetchAuthLogin = useAuthLoginService();
   const fetchAuthSignUp = useAuthSignUpService();
-  const { t } = useTranslation("sign-up");
+  const { t } = useTranslation('sign-up');
   const validationSchema = useValidationSchema();
 
   const methods = useForm<SignUpFormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
     },
   });
 
@@ -97,7 +97,7 @@ function Form() {
       (Object.keys(dataSignUp.errors) as Array<keyof SignUpFormData>).forEach(
         (key) => {
           setError(key, {
-            type: "manual",
+            type: 'manual',
             message: t(
               `sign-up:inputs.${key}.validation.server.${dataSignUp.errors[key]}`
             ),
@@ -129,12 +129,12 @@ function Form() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2} mb={2}>
             <Grid item xs={12} mt={3}>
-              <Typography variant="h6">{t("sign-up:title")}</Typography>
+              <Typography variant="h6">{t('sign-up:title')}</Typography>
             </Grid>
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
                 name="firstName"
-                label={t("sign-up:inputs.firstName.label")}
+                label={t('sign-up:inputs.firstName.label')}
                 type="text"
                 autoFocus
                 testId="first-name"
@@ -144,7 +144,7 @@ function Form() {
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
                 name="lastName"
-                label={t("sign-up:inputs.lastName.label")}
+                label={t('sign-up:inputs.lastName.label')}
                 type="text"
                 testId="last-name"
               />
@@ -153,7 +153,7 @@ function Form() {
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
                 name="email"
-                label={t("sign-up:inputs.email.label")}
+                label={t('sign-up:inputs.email.label')}
                 type="email"
                 testId="email"
               />
@@ -162,7 +162,7 @@ function Form() {
             <Grid item xs={12}>
               <FormTextInput<SignUpFormData>
                 name="password"
-                label={t("sign-up:inputs.password.label")}
+                label={t('sign-up:inputs.password.label')}
                 type="password"
                 testId="password"
               />
@@ -178,7 +178,7 @@ function Form() {
                   data-testid="login"
                   href="/sign-in"
                 >
-                  {t("sign-up:actions.accountAlreadyExists")}
+                  {t('sign-up:actions.accountAlreadyExists')}
                 </Button>
               </Box>
             </Grid>
@@ -186,7 +186,7 @@ function Form() {
             {[isGoogleAuthEnabled, isFacebookAuthEnabled].some(Boolean) && (
               <Grid item xs={12}>
                 <Divider sx={{ mb: 2 }}>
-                  <Chip label={t("sign-up:or")} />
+                  <Chip label={t('sign-up:or')} />
                 </Divider>
 
                 <SocialAuth />
