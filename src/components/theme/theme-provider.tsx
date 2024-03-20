@@ -1,17 +1,9 @@
 'use client';
 
-import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
-import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
-import { useMemo, PropsWithChildren } from 'react';
+import * as React from 'react';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { type ThemeProviderProps } from 'next-themes/dist/types';
 
-function ThemeProvider(props: PropsWithChildren<{}>) {
-  const theme = useMemo(() => extendTheme(), []);
-
-  return (
-    <CssVarsProvider theme={theme} defaultMode="system">
-      {props.children}
-    </CssVarsProvider>
-  );
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
-
-export default ThemeProvider;

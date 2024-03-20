@@ -19,7 +19,7 @@ import FacebookAuthProvider from '@/services/social-auth/facebook/facebook-auth-
 import ConfirmDialogProvider from '@/components/confirm-dialog/confirm-dialog-provider';
 
 import { SiteHeader } from '@/components/site-header';
-import ThemeProvider from '@/components/theme/theme-provider';
+import { ThemeProvider } from '@/components/theme/';
 
 type Props = {
   params: { language: string };
@@ -55,7 +55,7 @@ export default function RootLayout({
         {/* <InitColorSchemeScript /> */}
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {/* <CssBaseline /> */}
             <SnackbarProvider maxSnack={3}>
               <StoreLanguageProvider>
